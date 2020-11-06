@@ -1,11 +1,12 @@
 import Axios from 'axios'
 import React, { useState } from 'react'
 
-function AddData(){
+function AddData(props){
     // URL
     const URL = "https://crudcrud.com/api/d2384cd2032d4959a1b5a50ed552e418/notes"
     // initial form state
     const initialFormState = {
+        id: null,
         title: '',
         content: ''
     }
@@ -23,14 +24,17 @@ function AddData(){
         if(!note.title || !note.content) {
             return alert("Please Enter all fields")
         }
-        const data = {
+        // get add data
+        props.addNote(note)
+        setNote(initialFormState)
+        /*const data = {
            title: note.title,
            content: note.content
         }
         console.log('Added Data',data)
         Axios.post(`${URL}`,data)
         .then(res => console.log(res.data))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))*/
     }
     return(
         <div>
