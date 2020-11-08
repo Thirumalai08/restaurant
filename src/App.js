@@ -1,6 +1,6 @@
 import React from 'react'
-//import Main from './components/Main'
-import Main from './crud/Main'
+import Main from './components/Main'
+//import Main from './crud/Main'
 function App(){
     return(
         <div>
