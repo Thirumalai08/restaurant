@@ -13,7 +13,7 @@ function TopNav(){
                     <NavbarToggle aria-controls="responsive-navbar-nav" />
                     <NavbarCollapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <NavLink><Link style={{color:"#fff"}} to="/">Home</Link></NavLink>
+                        <NavLink><Link style={{color:"#fff"}} to="/home">Home</Link></NavLink>
                         <NavLink to="/add"><Link to="/add" style={{color:"#fff"}}>Add Todo</Link></NavLink>
                     </Nav>
                     <Nav>

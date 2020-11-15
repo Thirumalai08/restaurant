@@ -19,7 +19,9 @@ function ViewCard(props){
                         <div className="d-flex">
                         <Button outline="danger" variant="danger"
                         onClick={()=>props.delReq(note)}>Delete</Button>
-                        <Button style={{marginLeft:"5px"}}>Edit</Button>
+                        <Button variant="info" style={{marginLeft:"5px"}}
+                        onClick={()=>props.editCurrentNote(note)}
+                        ><Link style={{color:"#fff"}} to={"/edit/"+note._id}>Edit</Link></Button>
                         </div>
                     </Card>
                     </Col>

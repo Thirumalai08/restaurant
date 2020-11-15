@@ -18,11 +18,11 @@ function Main(){
     const history = useHistory()
     //const [show,setShow] = useState(true)
     // initial Form state
-    //const initialFormState = {title:'',content:''}
+    const initialFormState = {title:'',content:''}
     const [notes,setNotes] = useState(contentData)
     // state for editing
-    //const [editing,setEditing] = useState(false)
-    //const [currentNote,setCurrentNote] = useState(initialFormState)
+    const [editing,setEditing] = useState(false)
+    const [currentNote,setCurrentNote] = useState(initialFormState)
     // fetchData
     useEffect(()=>{
         // calling get data function
@@ -57,15 +57,43 @@ function Main(){
         .catch(err => console.log(err))
         history.push("/home")
     }
+    // edit current note
+    const editCurrentNote = (note) => {
+        setEditing(true)
+        setCurrentNote({
+            _id: note._id,
+            title: note.title,
+            content: note.content
+        })
+    }
+    //update Req
+    const updateReq = async(_id,updateNote) => {
+        const data = {title: updateNote.title,content: updateNote.content}
+        // req
+        await Axios.put(`${URL}/${_id}`,data)
+        setEditing(false)
+        setNotes(notes.map((note)=>(
+            note._id === _id ? updateNote : note
+        )))
+    }
     return(
         <div>
             <TopNav />
             <Switch>
                 <Route exact path="/home" render={()=>
-                    <ViewCard notes={notes} delReq={delReq} />
+                    <ViewCard notes={notes} delReq={delReq} editCurrentNote={editCurrentNote} />
                 } />
-                <Route path="/add" render={()=><AddForm addReq={addReq} />} />
-                <Route path="/edit/:id" component={EditForm} />
+                {editing ? (
+                    <Route path="/edit/:id" render={()=><EditForm 
+                        setEditing={setEditing}
+                        currentNote={currentNote}
+                        updateReq={updateReq} 
+                        />} />    
+                ) : (
+                    <Route path="/add" render={()=><AddForm addReq={addReq} />} />
+                )}
+                {/*<Route path="/add" render={()=><AddForm addReq={addReq} />} />*/}
+                {/*<Route path="/edit/:id" component={EditForm} />*/}
                 <Route path="/test" render={()=><Test test="working test with render" />} />
                 <Route component={Error} />
             </Switch>
